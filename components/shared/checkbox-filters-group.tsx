@@ -1,71 +1,89 @@
 'use client';
 
-import { cn } from '@/lib/utils';
-import { FC, useState } from 'react';
-import { FilterCheckbox, FilterCheckboxProps } from './filter-checkbox';
-import { Input } from '@/components/ui';
+import React from 'react';
+import { FilterChecboxProps, FilterCheckbox } from './filter-checkbox';
+import { Input } from '../ui/input';
+import { Skeleton } from '../ui';
 
-type Item = FilterCheckboxProps;
+type Item = FilterChecboxProps;
 
 interface Props {
   title: string;
   items: Item[];
-  defaultItems: Item[];
+  defaultItems?: Item[];
   limit?: number;
+  loading?: boolean;
   searchInputPlaceholder?: string;
-  onChange?: (values: string[]) => void;
+  onClickCheckbox?: (id: string) => void;
   defaultValue?: string[];
+  selected?: Set<string>;
   className?: string;
+  name?: string;
 }
 
-export const CheckboxFiltersGroup: FC<Props> = ({
+export const CheckboxFiltersGroup: React.FC<Props> = ({
   title,
   items,
   defaultItems,
   limit = 5,
   searchInputPlaceholder = 'Поиск...',
   className,
-  onChange,
-  defaultValue,
+  loading,
+  onClickCheckbox,
+  selected,
+  name,
 }) => {
-  const [showAll, setShowAll] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
+  const [showAll, setShowAll] = React.useState(false);
+  const [searchValue, setSearchValue] = React.useState('');
 
-  const onChangeSearchInput = (value: string) => {
-    setSearchValue(value);
+  const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
   };
 
+  if (loading) {
+    return (
+      <div className={className}>
+        <p className="font-bold mb-3">{title}</p>
+
+        {...Array(limit)
+          .fill(0)
+          .map((_, index) => <Skeleton key={index} className="h-6 mb-4 rounded-[8px]" />)}
+
+        <Skeleton className="w-28 h-6 mb-4 rounded-[8px]" />
+      </div>
+    );
+  }
+
   const list = showAll
-    ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase()))
-    : defaultItems.slice(0, limit);
+    ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLocaleLowerCase()))
+    : (defaultItems || items).slice(0, limit);
 
   return (
-    <div className={cn('', className)}>
-      <p className={'font-bold mb-3'}>{title}</p>
+    <div className={className}>
+      <p className="font-bold mb-3">{title}</p>
 
       {showAll && (
         <div className="mb-5">
           <Input
-            onChange={(event) => onChangeSearchInput(event.target.value)}
+            onChange={onChangeSearchInput}
             placeholder={searchInputPlaceholder}
             className="bg-gray-50 border-none"
           />
         </div>
       )}
 
-      <div className={'flex flex-col gap-4 max-h-96 pr-2 overflow-auto scrollbar'}>
-        {list.map((item, index) => {
-          return (
-            <FilterCheckbox
-              key={index}
-              text={item.text}
-              value={item.value}
-              endAdornment={item.endAdornment}
-              checked={false}
-              onCheckedChange={() => undefined}
-            />
-          );
-        })}
+      <div className="flex flex-col gap-4 max-h-96 pr-2 overflow-auto scrollbar">
+        {list.map((item, index) => (
+          <FilterCheckbox
+            key={index}
+            text={item.text}
+            value={item.value}
+            endAdornment={item.endAdornment}
+            checked={selected?.has(item.value)}
+            onCheckedChange={() => onClickCheckbox?.(item.value)}
+            name={name}
+          />
+        ))}
       </div>
 
       {items.length > limit && (
