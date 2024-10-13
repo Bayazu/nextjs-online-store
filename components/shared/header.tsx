@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
+import { CartButton } from '@/components/shared/cart-button';
 import { Button } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
@@ -43,20 +44,7 @@ export const Header: FC<Props> = ({ hasSearch = true, hasCart = true, className 
             Войти
           </Button>
 
-          <div>
-            <Button className={'group relative'}>
-              <b>520 Р</b>
-              <span className={'h-full w-[1px] bg-white/30 mx-3'} />
-              <div className="flex items-center gap-1 transition duration-300 group-hover:opacity-0">
-                <ShoppingCart size={16} className="relative" strokeWidth={2} />
-                <b>3</b>
-              </div>
-              <ArrowRight
-                size={20}
-                className="absolute right-5 transition duration-300 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0"
-              />
-            </Button>
-          </div>
+          {hasCart && <CartButton />}
         </div>
       </Container>
     </header>
