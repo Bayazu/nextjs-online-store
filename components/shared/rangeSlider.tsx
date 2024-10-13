@@ -1,8 +1,9 @@
 'use client';
 
 import * as SliderPrimitive from '@radix-ui/react-slider';
+import { Fragment, RefObject, forwardRef, useEffect, useState } from 'react';
+
 import { cn } from '@/lib/utils';
-import { forwardRef, Fragment, RefObject, useEffect, useState } from 'react';
 
 type SliderProps = {
   className?: string;
@@ -54,7 +55,7 @@ const RangeSlider = forwardRef(
               className="absolute text-center"
               style={{
                 left: `calc(${((value - min) / (max - min)) * 100}% + 0px)`,
-                top: `10px`,
+                top: '10px',
               }}
             >
               <span className="text-sm">{formatLabel ? formatLabel(value) : value}</span>

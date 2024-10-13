@@ -1,7 +1,8 @@
-import React from 'react';
-import { Filters } from './use-filters';
 import { useRouter } from 'next/navigation';
 import qs from 'qs';
+import React from 'react';
+
+import { Filters } from './use-filters';
 
 export const useQueryFilters = (filters: Filters) => {
   const isMounted = React.useRef(false);

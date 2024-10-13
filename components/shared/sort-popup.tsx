@@ -1,6 +1,7 @@
-import { FC } from 'react';
-import { cn } from '@/lib/utils';
 import { ArrowUpDown } from 'lucide-react';
+import { FC } from 'react';
+
+import { cn } from '@/lib/utils';
 
 interface Props {
   className?: string;

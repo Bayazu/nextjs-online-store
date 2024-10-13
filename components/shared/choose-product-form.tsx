@@ -1,7 +1,10 @@
 import React from 'react';
-import { Title } from './title';
-import { Button } from '../ui';
+
 import { cn } from '@/lib/utils';
+
+import { Button } from '../ui';
+
+import { Title } from './title';
 
 interface Props {
   imageUrl: string;

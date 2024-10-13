@@ -1,16 +1,17 @@
 'use client';
 
-import React from 'react';
 import { Ingredient, ProductItem } from '@prisma/client';
+import React from 'react';
+
+import { GroupVariants } from '@/components/shared/group-variants';
+import { IngredientItem } from '@/components/shared/ingredient-item';
+import { PizzaImage } from '@/components/shared/pizza-image';
+import { Title } from '@/components/shared/title';
+import { Button } from '@/components/ui';
+import { PizzaSize, PizzaType, pizzaTypes } from '@/constants/pizza';
 import { usePizzaOptions } from '@/hooks/use-pizza-options';
 import { getPizzaDetails } from '@/lib/get-pizza-details';
 import { cn } from '@/lib/utils';
-import { PizzaImage } from '@/components/shared/pizza-image';
-import { Title } from '@/components/shared/title';
-import { GroupVariants } from '@/components/shared/group-variants';
-import { PizzaSize, PizzaType, pizzaTypes } from '@/constants/pizza';
-import { Button } from '@/components/ui';
-import { IngredientItem } from '@/components/shared/ingredient-item';
 
 interface Props {
   imageUrl: string;

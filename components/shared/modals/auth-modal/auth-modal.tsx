@@ -1,12 +1,15 @@
 'use client';
 
+// eslint-disable-next-line import/order
 import { signIn } from 'next-auth/react';
+
 // import React from 'react';
 // import { LoginForm } from './forms/login-form';
 // import { RegisterForm } from './forms/register-form';
+import { FC, useState } from 'react';
+
 import { Button, Dialog } from '@/components/ui';
 import { DialogContent } from '@/components/ui/dialog';
-import { FC, useState } from 'react';
 
 interface Props {
   open: boolean;

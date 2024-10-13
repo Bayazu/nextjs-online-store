@@ -1,4 +1,5 @@
 import { User } from '@prisma/client';
+
 import { axiosInstance } from './instance';
 
 export const getMe = async () => {

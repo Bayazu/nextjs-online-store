@@ -1,6 +1,8 @@
-import type { Metadata } from 'next';
 import { Suspense } from 'react';
+
 import { Header } from '@/components/shared';
+
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Next Pizza | Главная',

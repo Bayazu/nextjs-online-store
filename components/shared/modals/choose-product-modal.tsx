@@ -1,12 +1,14 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ProductWithRelations } from '@/@types/prisma';
-import { ProductForm } from '../product-form';
-import { Dialog } from '@/components/ui';
-import { cn } from '@/lib/utils';
-import { DialogContent } from '@/components/ui/dialog';
 import { FC } from 'react';
+
+import { ProductWithRelations } from '@/@types/prisma';
+import { Dialog } from '@/components/ui';
+import { DialogContent } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
+
+import { ProductForm } from '../product-form';
 
 interface Props {
   product: ProductWithRelations;

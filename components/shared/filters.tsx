@@ -1,14 +1,16 @@
 'use client';
 
 import React from 'react';
-import { Title } from './title';
+
+import { useFilters } from '@/hooks/use-filters';
+import { useIngredients } from '@/hooks/use-ingredients';
+import { useQueryFilters } from '@/hooks/use-query-filters';
+
 import { Input } from '../ui';
 
 import { CheckboxFiltersGroup } from './checkbox-filters-group';
-import { useIngredients } from '@/hooks/use-ingredients';
-import { useFilters } from '@/hooks/use-filters';
-import { useQueryFilters } from '@/hooks/use-query-filters';
 import { RangeSlider } from './rangeSlider';
+import { Title } from './title';
 
 interface Props {
   className?: string;

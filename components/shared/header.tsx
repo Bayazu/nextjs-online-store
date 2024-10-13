@@ -1,10 +1,12 @@
-import { FC } from 'react';
-import { cn } from '@/lib/utils';
-import { Container } from './container';
-import Image from 'next/image';
-import { Button } from '@/components/ui';
 import { ArrowRight, ShoppingCart, User } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
+import { FC } from 'react';
+
+import { Button } from '@/components/ui';
+import { cn } from '@/lib/utils';
+
+import { Container } from './container';
 import { SearchInput } from './search-input';
 
 interface Props {

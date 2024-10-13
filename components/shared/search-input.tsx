@@ -6,6 +6,7 @@ import { Search } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { useClickAway, useDebounce } from 'react-use';
+
 import { cn } from '@/lib/utils';
 import { Api } from '@/services/api-client';
 
@@ -27,6 +28,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
     async () => {
       try {
         const response = await Api.products.search(searchQuery);
+
         setProducts(response);
       } catch (error) {
         console.log(error);

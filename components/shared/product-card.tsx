@@ -1,9 +1,11 @@
-import { FC } from 'react';
-import Link from 'next/link';
-import { Title } from '@/components/shared/title';
-import { Button } from '../ui';
-import { Plus } from 'lucide-react';
 import { Ingredient } from '@prisma/client';
+import { Plus } from 'lucide-react';
+import Link from 'next/link';
+import { FC } from 'react';
+
+import { Title } from '@/components/shared/title';
+
+import { Button } from '../ui';
 
 interface Props {
   id: number;

@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
-import { FilterChecboxProps, FilterCheckbox } from './filter-checkbox';
-import { Input } from '../ui/input';
+
 import { Skeleton } from '../ui';
+import { Input } from '../ui/input';
+
+import { FilterChecboxProps, FilterCheckbox } from './filter-checkbox';
 
 type Item = FilterChecboxProps;
 
