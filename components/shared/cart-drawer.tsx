@@ -3,7 +3,7 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { CartDrawerItem } from '@/components/shared/cart-drawer-item';
 import { Title } from '@/components/shared/title';
@@ -17,19 +17,20 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { PizzaSize, PizzaType } from '@/constants/pizza';
+import { useCart } from '@/hooks/use-cart';
+import { getCartItemDetails } from '@/lib/get-cart-item-details';
 import { cn } from '@/lib/utils';
 
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
-  // const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+  const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
   const [redirecting, setRedirecting] = React.useState(false);
 
   const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
-    // updateItemQuantity(id, newQuantity);
-  };
 
-  const totalAmount = 100;
-  const items = ['', ''];
+    updateItemQuantity(id, newQuantity);
+  };
 
   return (
     <Sheet>
@@ -65,27 +66,26 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
           {totalAmount > 0 && (
             <>
               <div className="-mx-6 mt-5 overflow-auto flex-1">
-                {items.map((item, i) => (
-                  <div key={i}>ass</div>
-                  // <div key={item.id} className="mb-2">
-                  //   <CartDrawerItem
-                  //     id={item.id}
-                  //     imageUrl={item.imageUrl}
-                  //     details={getCartItemDetails(
-                  //       item.ingredients,
-                  //       item.pizzaType as PizzaType,
-                  //       item.pizzaSize as PizzaSize,
-                  //     )}
-                  //     disabled={item.disabled}
-                  //     name={item.name}
-                  //     price={item.price}
-                  //     quantity={item.quantity}
-                  //     onClickCountButton={(type) =>
-                  //       onClickCountButton(item.id, item.quantity, type)
-                  //     }
-                  //     onClickRemove={() => removeCartItem(item.id)}
-                  //   />
-                  // </div>
+                {items.map((item) => (
+                  <div key={item.id} className="mb-2">
+                    <CartDrawerItem
+                      id={item.id}
+                      imageUrl={item.imageUrl}
+                      details={getCartItemDetails(
+                        item.ingredients,
+                        item.pizzaType as PizzaType,
+                        item.pizzaSize as PizzaSize,
+                      )}
+                      disabled={item.disabled}
+                      name={item.name}
+                      price={item.price}
+                      quantity={item.quantity}
+                      onClickCountButton={(type) =>
+                        onClickCountButton(item.id, item.quantity, type)
+                      }
+                      onClickRemove={() => removeCartItem(item.id)}
+                    />
+                  </div>
                 ))}
               </div>
 

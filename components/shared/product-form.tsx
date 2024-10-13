@@ -1,10 +1,12 @@
 'use client';
 
 import { FC } from 'react';
+import toast from 'react-hot-toast';
 
 import { ProductWithRelations } from '@/@types/prisma';
 import { ChoosePizzaForm } from '@/components/shared/choose-pizza-form';
 import { ChooseProductForm } from '@/components/shared/choose-product-form';
+import { useCartStore } from '@/store/cart';
 
 interface Props {
   product: ProductWithRelations;
@@ -12,29 +14,28 @@ interface Props {
 }
 
 export const ProductForm: FC<Props> = ({ product, onSubmit: _onSubmit }) => {
-  // const [addCartItem, loading] = useCartStore((state) => [state.addCartItem, state.loading]);
+  const addCartItem = useCartStore((state) => state.addCartItem);
+  const loading = useCartStore((state) => state.loading);
 
   const firstItem = product.items[0];
   const isPizzaForm = Boolean(firstItem.pizzaType);
 
-  const loading = false;
-
   const onSubmit = async (productItemId?: number, ingredients?: number[]) => {
-    // try {
-    //   const itemId = productItemId ?? firstItem.id;
-    //
-    //   await addCartItem({
-    //     productItemId: itemId,
-    //     ingredients,
-    //   });
-    //
-    //   toast.success(product.name + ' добавлена в корзину');
-    //
-    //   _onSubmit?.();
-    // } catch (err) {
-    //   toast.error('Не удалось добавить товар в корзину');
-    //   console.error(err);
-    // }
+    try {
+      const itemId = productItemId ?? firstItem.id;
+
+      await addCartItem({
+        productItemId: itemId,
+        ingredients,
+      });
+
+      toast.success(product.name + ' добавлена в корзину');
+
+      _onSubmit?.();
+    } catch (err) {
+      toast.error('Не удалось добавить товар в корзину');
+      console.error(err);
+    }
   };
 
   if (isPizzaForm) {
